@@ -64,6 +64,16 @@
 
         <div id="result"></div>
 
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Tiempo</th>
+                    <th>Temperatura</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-resultados">
+            </tbody>
+        </table>
 
         <div class="authors">
             <p>Este trabajo ha sido desarrollado por:</p>
@@ -80,6 +90,10 @@
     <script>
         function calcularResultados() {
             // Obtener valores proporcionados por el usuario
+            tablaResultadosC = document.querySelector('.results-table')
+
+            tablaResultados = document.getElementById('tabla-resultados')
+
             const T0 = parseFloat(document.getElementById("temperatura-inicial").value);
             const Tm = parseFloat(document.getElementById("temperatura-ambiente").value);
             const C = T0 - Tm;
@@ -176,8 +190,19 @@
             // Mostrar ecuaciones y resultados
             mostrarFunciones();
 
+
+
             // Actualizar MathJax para procesar las expresiones matemáticas
             MathJax.Hub.Queue(["Typeset", MathJax.Hub, "result"]);
+
+
+            tablaResultadosC.style.display = 'inline-block';
+            for (let tiempo = 5; tiempo <= 60; tiempo += 5) {
+                const temperatura = calculateTemperature(tiempo);
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${tiempo}</td><td>${temperatura.toFixed(2)}</td>`;
+                tablaResultados.appendChild(row);
+            }
         }
     </script>
 </body>

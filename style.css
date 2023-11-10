@@ -39,7 +39,6 @@ td {
 
 table {
     margin: auto;
-    border-radius: 10px;
 }
 
 input {
@@ -73,4 +72,8 @@ button:hover {
     font-size: .9rem;
     font-weight: bold;
     text-align: left;
+}
+
+.results-table {
+    display: none;
 }

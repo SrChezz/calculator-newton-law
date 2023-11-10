@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bevan:ital@0;1&family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,800&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.1.0/math.min.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    <title>Enfriamiento de Newton</title>
+</head>
+
+<body>
+    <main>
+        <h1>Enfriamiento de Newton</h1>
+
+        <p>La Ley de Enfriamiento de Newton describe cómo cambia la temperatura de un objeto con el tiempo cuando está
+            en
+            contacto con un entorno más frío o más cálido. Esta ley es especialmente aplicable a situaciones en las que
+            la
+            diferencia de temperatura entre el objeto y el entorno es significativa.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tiempo (t)</th>
+                    <th>Temperatura (T)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0</td>
+                    <td><input type="number" id="temperatura-inicial" placeholder="Temperatura inicial"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" id="tiempo-punto-n" placeholder="Tiempo en el punto N"></td>
+                    <td><input type="number" id="temperatura-punto-n" placeholder="Temperatura en el punto N"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="input">
+            <label for="temperatura-ambiente">Temperatura del Ambiente:</label>
+            <input type="number" id="temperatura-ambiente" placeholder="Ingrese la temperatura del ambiente">
+        </div>
+
+        <div class="input">
+            <label for="tiempo-calcular">Tiempo a Calcular:</label>
+            <input type="number" id="tiempo-calcular" placeholder="Ingrese el tiempo a calcular">
+        </div>
+
+        <button onclick="calcularResultados()">Calcular</button>
+
+
+        <div id="result"></div>
+
+
+        <div class="authors">
+            <p>Este trabajo ha sido desarrollado por:</p>
+            <ul>
+                <li>Calderón Rojas Juan Andree</li>
+                <li>Jesús Peña Jholen Adriana </li>
+                <li>Robles Huaman Jhenny</li>
+                <li>Torres Párraga Fernando Miguel</li>
+            </ul>
+        </div>
+    </main>
+
+
+    <script>
+        function calcularResultados() {
+            // Obtener valores proporcionados por el usuario
+            const T0 = parseFloat(document.getElementById("temperatura-inicial").value);
+            const Tm = parseFloat(document.getElementById("temperatura-ambiente").value);
+            const C = T0 - Tm;
+
+            const t_n = parseFloat(document.getElementById("tiempo-punto-n").value);
+            const T_n = parseFloat(document.getElementById("temperatura-punto-n").value);
+
+            const t_x = parseFloat(document.getElementById("tiempo-calcular").value);
+
+            const K = Math.log((T_n - Tm) / C) / t_n;
+
+            // // Valores predeterminados
+            // const T0 = 78; // Temperatura inicial
+            // const Tm = 20; // Temperatura del ambiente
+            // const C = T0 - Tm; // Constante C
+
+            // // Valores de otro punto
+            // const t_n = 15; // Tiempo m
+            // const T_n = 58.9; // Temperatura en tiempo m
+
+            // // Tiempo cualquiera que se quiera hallar
+            // const t_x = 60;
+
+            // // Calcular la constante de enfriamiento K
+            // const K = Math.log((T_n - Tm) / C) / t_n;
+
+            // Resultados
+            const resultElement = document.getElementById("result");
+
+            function calculateTemperature(t) {
+                // Calcular la temperatura en cualquier tiempo t usando la ley de enfriamiento de Newton
+                return Tm + C * Math.exp(K * t);
+            }
+
+            // Mostrar ecuaciones en formato LaTeX
+            function mostrarFunciones() {
+                // Ecuación general
+                let h2General = document.createElement("h2");
+                h2General.innerHTML = "La ecuación de enfriamiento de Newton es: ";
+                let divGeneral = document.createElement("div");
+                divGeneral.innerHTML = `\\[ 
+                \\frac{dT}{dt} = K(T - ${Tm}) \\newline
+                \\int \\frac{dT}{(T - ${Tm})} dt = \\int K dt \\newline
+                \\ln |T - ${Tm}| = Kt \\newline
+                T - ${Tm} = e^{(Kt + C)} \\newline
+                T(t) = ${Tm} + Ce^{Kt}
+            \\]`;
+
+                // Cálculo de la constante C
+                let h2Constante = document.createElement("h2");
+                h2Constante.innerHTML = "Calculamos la constante C: ";
+                let divConstante = document.createElement("div");
+                divConstante.innerHTML = `\\[ 
+                T(t) = ${Tm} + Ce^{Kt} \\newline
+                ${T0} = ${Tm} + Ce^{K \\cdot 0} \\newline
+                C = ${C}
+            \\]`;
+
+                // Cálculo de la constante K
+                let h2K = document.createElement("h2");
+                h2K.innerHTML = "Calculamos la constante K: ";
+                let divK = document.createElement("div");
+                divK.innerHTML = `\\[ 
+                T(15) = ${Tm} + Ce^{Kt} \\newline
+                ${T_n} = ${Tm} + ${C}e^{Kt} \\newline
+                ${T_n - Tm} = ${C}e^{Kt} \\newline
+                \\frac{${T_n - Tm}}{${C}} = e^{Kt} \\newline
+                \\ln\\left|\\frac{${T_n - Tm}}{${C}}\\right| = \\ln\\left|e^{K \\cdot ${t_n}}\\right| \\newline
+                -0.3994 = ${t_n}K = ${K * t_n} \\newline
+                -0.0266 = K = ${K.toFixed(4)}
+            \\]`;
+
+                // Cálculo de la temperatura en un tiempo t_x
+                let h2Temperatura = document.createElement("h2");
+                h2Temperatura.innerHTML = "Calculamos la temperatura en un tiempo t: ";
+                let divTemperatura = document.createElement("div");
+                divTemperatura.innerHTML = `\\[ 
+                T(${t_x}) = ${Tm} + Ce^{Kt} \\newline
+                T(${t_x}) = ${Tm} + ${C} \\cdot e^{${K} \\cdot ${t_x}} \\newline
+                T(${t_x}) = ${calculateTemperature(t_x).toFixed(2)};
+            \\]`;
+
+                // Añadir elementos al DOM
+                resultElement.appendChild(h2General);
+                resultElement.appendChild(divGeneral);
+                resultElement.appendChild(h2Constante);
+                resultElement.appendChild(divConstante);
+                resultElement.appendChild(h2K);
+                resultElement.appendChild(divK);
+                resultElement.appendChild(h2Temperatura);
+                resultElement.appendChild(divTemperatura);
+            }
+
+            // Mostrar ecuaciones y resultados
+            mostrarFunciones();
+
+            // Actualizar MathJax para procesar las expresiones matemáticas
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, "result"]);
+        }
+    </script>
+</body>
+
+</html>

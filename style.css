@@ -1,0 +1,76 @@
+body {
+    --font-title: 'Bevan', serif;
+    --font-body: 'Kanit', sans-serif;
+    box-sizing: border-box;
+    font-family: var(--font-body);
+    background-color: #F3EEEA;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-title);
+    color: #776B5D;
+    text-align: center;
+}
+
+main {
+    width: 80%;
+    margin: 30px auto;
+    background-color: #EBE3D5;
+    border-radius: 20px;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.table {
+    display: none;
+}
+
+table,
+th,
+td {
+    border-collapse: collapse;
+    border: 2px solid #776B5D;
+}
+
+table {
+    margin: auto;
+    border-radius: 10px;
+}
+
+input {
+    border: none;
+    background-color: none;
+}
+
+.input {
+    text-align: center;
+}
+
+button {
+    border: 1px solid #776B5D;
+    border-radius: 5px;
+    padding: 7px 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #EBE3D5;
+    cursor: pointer;
+    margin: 10px;
+    transition: background .3s ease;
+}
+
+button:hover {
+    background-color: #776B5D;
+    color: #F3EEEA;
+}
+
+.authors {
+    color: #545454;
+    font-size: .9rem;
+    font-weight: bold;
+    text-align: left;
+}
